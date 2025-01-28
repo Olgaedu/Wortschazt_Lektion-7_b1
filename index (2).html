@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interaktive Übung - Lückentext</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.8;
+            margin: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        select {
+            background-color: #f0f8ff;
+            border: 1px solid #ccc;
+            padding: 5px;
+            margin: 0 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #check-button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #check-button:hover {
+            background-color: #0056b3;
+        }
+        .correct {
+            color: green;
+            font-weight: bold;
+        }
+        .incorrect {
+            color: red;
+            font-weight: bold;
+        }
+        #feedback {
+            text-align: center;
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Interaktive Übung - Lückentext</h1>
+        <p>
+            Das Institut Nova hat eine <select data-correct="Umfrage">
+                <option>Frage</option>
+                <option>Umfrage</option>
+            </select> unter Mitarbeitenden von 200 Firmen mit mehr als 50 Angestellten durchgeführt. Dabei ging es um die Frage, wie sich die <select data-correct="beruflichen Anforderungen">
+                <option>beruflichen Anforderungen</option>
+                <option>beruflichen Forderungen</option>
+            </select> in den nächsten Jahren verändern werden. Die Ergebnisse zeigen, dass es bei den sogenannten Hard Skills, also den fachlichen Kenntnissen, <select data-correct="zunehmend">
+                <option>abnehmend</option>
+                <option>zunehmend</option>
+            </select> wichtiger wird, Daten zu analysieren und moderne Technologien zu nutzen. Gleichzeitig wird auch das Thema Wissensmanagement mehr an Bedeutung gewinnen. Dabei geht es darum, Wissen gut zu organisieren und effektiv einzusetzen.
+        </p>
+        <p>
+            Auch bei den Soft Skills sind Veränderungen zu erwarten. Diese Fähigkeiten hängen oft mit den <select data-correct="persönlichen Eigenschaften">
+                <option>privaten Eigenschaften</option>
+                <option>persönlichen Eigenschaften</option>
+            </select> der Mitarbeitenden zusammen und können nicht direkt durch eine Ausbildung gelernt werden. Expertinnen und Experten <select data-correct="gehen davon aus">
+                <option>gehen von aus</option>
+                <option>gehen davon aus</option>
+            </select>, dass in der Zukunft Unternehmen mehr <select data-correct="Wert">
+                <option>Bedeutung</option>
+                <option>Wert</option>
+            </select> auf <select data-correct="fächerübergreifende">
+                <option>multifunktionale</option>
+                <option>fächerübergreifende</option>
+            </select> Kompetenzen legen. Ein Beispiel dafür ist, dass Mitarbeitende nicht nur ihre eigenen Aufgaben erledigen, sondern auch das große Ganze im Blick behalten sollten. So sollte jemand aus dem Marketingbereich zum Beispiel auch verstehen, wie neue Produkte entwickelt und verbessert werden.
+        </p>
+        <p>
+            Außerdem werden <select data-correct="Gesprächsführung">
+                <option>Gesprächsführung</option>
+                <option>Gesprächsleitung</option>
+            </select> und Kommunikationsfähigkeiten immer wichtiger. Es ist entscheidend, dass Mitarbeitende <select data-correct="andere überzeugen">
+                <option>andere überzeugen</option>
+                <option>andere beeinflussen</option>
+            </select> können, sei es bei der Zusammenarbeit im Team oder bei Verhandlungen mit Kundinnen und Kunden. Zu den wichtigen Eigenschaften zählen auch <select data-correct="Teamfähigkeit">
+                <option>teamfähig</option>
+                <option>Teamfähigkeit</option>
+            </select> und <select data-correct="Konfliktfähigkeit">
+                <option>konflikfähig</option>
+                <option>Konfliktfähigkeit</option>
+            </select>, also die Fähigkeit, gut im Team zu arbeiten und bei Streitigkeiten nach Lösungen zu suchen.
+        </p>
+        <p>
+            Da die Arbeitswelt immer internationaler wird, spielt auch die <select data-correct="interkulturelle Kompetenz">
+                <option>kulturelle Kompetenz</option>
+                <option>interkulturelle Kompetenz</option>
+            </select> eine große Rolle. Das bedeutet, dass man andere Kulturen verstehen und in einem internationalen Umfeld erfolgreich handeln kann. Diese Fähigkeiten werden für die Zukunft immer bedeutender, da in vielen Unternehmen Menschen aus verschiedenen Ländern zusammenarbeiten.
+        </p>
+        <button id="check-button">Prüfen</button>
+        <p id="feedback"></p>
+    </div>
+
+    <script>
+        document.getElementById('check-button').addEventListener('click', () => {
+            let allCorrect = true;
+            let correctCount = 0;
+            const total = document.querySelectorAll('select').length;
+
+            document.querySelectorAll('select').forEach(select => {
+                if (select.value === select.dataset.correct) {
+                    select.classList.remove('incorrect');
+                    select.classList.add('correct');
+                    correctCount++;
+                } else {
+                    select.classList.remove('correct');
+                    select.classList.add('incorrect');
+                    allCorrect = false;
+                }
+            });
+
+            const feedback = document.getElementById('feedback');
+            feedback.textContent = `Richtige Antworten: ${correctCount} von ${total}.`;
+
+            if (allCorrect) {
+                feedback.style.color = 'green';
+            } else {
+                feedback.style.color = 'red';
+            }
+        });
+    </script>
+</body>
+</html>
